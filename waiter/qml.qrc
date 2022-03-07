@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>qml/Pages/WaiterChoose.qml</file>
+        <file>qml/main.qml</file>
+        <file>qml/Pages/StartPage.qml</file>
+        <file>qml/Pages/NewOrder.qml</file>
+        <file>qml/Components/Table.qml</file>
+        <file>qml/Pages/NewOrderMainCat.qml</file>
+        <file>qml/Pages/NewOrderSubCat.qml</file>
+        <file>qml/Pages/NewOrderQty.qml</file>
+        <file>qml/Pages/NewOrderFinish.qml</file>
+    </qresource>
+</RCC>
