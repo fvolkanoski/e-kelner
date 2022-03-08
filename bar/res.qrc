@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/">
+        <file>res/Fonts/Nunito-Black.ttf</file>
+        <file>res/Fonts/Nunito-BlackItalic.ttf</file>
+        <file>res/Fonts/Nunito-Bold.ttf</file>
+        <file>res/Fonts/Nunito-BoldItalic.ttf</file>
+        <file>res/Fonts/Nunito-ExtraBold.ttf</file>
+        <file>res/Fonts/Nunito-ExtraBoldItalic.ttf</file>
+        <file>res/Fonts/Nunito-ExtraLight.ttf</file>
+        <file>res/Fonts/Nunito-ExtraLightItalic.ttf</file>
+        <file>res/Fonts/Nunito-Italic.ttf</file>
+        <file>res/Fonts/Nunito-Light.ttf</file>
+        <file>res/Fonts/Nunito-LightItalic.ttf</file>
+        <file>res/Fonts/Nunito-Medium.ttf</file>
+        <file>res/Fonts/Nunito-MediumItalic.ttf</file>
+        <file>res/Fonts/Nunito-Regular.ttf</file>
+        <file>res/Fonts/Nunito-SemiBold.ttf</file>
+        <file>res/Fonts/Nunito-SemiBoldItalic.ttf</file>
+    </qresource>
+</RCC>
