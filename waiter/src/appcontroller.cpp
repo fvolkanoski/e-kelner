@@ -6,7 +6,8 @@
 AppController::AppController(QObject *parent)
     : QObject{parent},
       _engine(new QQmlEngine(this)),
-      _dbManager(new DBManager(this))
+      _dbManager(new DBManager(this)),
+      _udpSocket(new QUdpSocket(this))
 {
     qRegisterMetaType<MenuItem>();
     qRegisterMetaType<Order>();
@@ -44,6 +45,20 @@ void AppController::addOrder()
 
     setOrders(tempOrders);
 
+    for(int i = 0; i < currentOrder().items().size(); i++)
+    {
+        if(currentOrder().items()[i].catId() == 0) // TODO: We have to check whether this is for the bar or kichen.
+        {
+            // Send the order to the bar
+            QByteArray datagram = QByteArray::number(currentOrder().items()[i].id()) + "," +
+                                  currentOrder().items()[i].name().toUtf8() + "," +
+                                  QByteArray::number(currentOrder().items()[i].qty());
+
+            _udpSocket->writeDatagram(datagram, QHostAddress::Broadcast, 45454); // 192.168.0.173
+        }
+    }
+
+    // Reset the current order
     Order ord;
     setCurrentOrder(ord);
 }

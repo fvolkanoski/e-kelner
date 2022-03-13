@@ -2,6 +2,7 @@
 
 #include <QObject>
 #include <QQmlEngine>
+#include <QUdpSocket>
 
 #include "dbmanager.h"
 
@@ -9,6 +10,7 @@ struct MenuItem {
     Q_GADGET
 
     Q_PROPERTY(int id MEMBER m_id READ id WRITE setId)
+    Q_PROPERTY(int catId MEMBER m_catId READ catId WRITE setCatId)
     Q_PROPERTY(QString name MEMBER m_name READ name WRITE setName)
     Q_PROPERTY(int qty MEMBER m_qty READ qty WRITE setQty)
 
@@ -16,13 +18,15 @@ public:
     MenuItem()
     {
         this->setId(0);
+        this->setCatId(0);
         this->setName("");
         this->setQty(0);
     }
 
-    MenuItem(int id, QString name, int qty)
+    MenuItem(int id, int catId, QString name, int qty)
     {
         this->setId(id);
+        this->setCatId(catId);
         this->setName(name);
         this->setQty(qty);
     }
@@ -33,6 +37,14 @@ public:
     void setId(int newId) {
         m_id = newId;
     }
+
+    int catId() const {
+        return m_catId;
+    }
+    void setCatId(int newId) {
+        m_catId = newId;
+    }
+
 
     QString name() const {
         return m_name;
@@ -50,6 +62,7 @@ public:
 
 private:
     int m_id;
+    int m_catId;
     QString m_name;
     int m_qty;
 };
@@ -127,6 +140,7 @@ signals:
 private:
     QQmlEngine *_engine;
     DBManager *_dbManager;
+    QUdpSocket *_udpSocket;
     Order m_currentOrder;
     QVector<Order> m_orders;
     MenuItem m_currentMenuItem;
