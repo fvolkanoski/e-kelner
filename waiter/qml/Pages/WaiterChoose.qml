@@ -8,7 +8,7 @@ Item {
         x: 0
         y: 25
         z: 1
-        width: 600
+        width: parent.width
         height: 49
         color: "#ffffff"
 
@@ -24,8 +24,8 @@ Item {
         id: waiterList
         x: 43
         y: 103
-        width: 550
-        height: 900
+        width: parent.width - 50
+        height: parent.height - 100
         model: dbManager.waiters
         spacing: 5
 
@@ -34,7 +34,7 @@ Item {
             required property string modelData
 
             height: 81
-            width: 515
+            width: parent.width - 50
             color: "#d8d8d8"
             radius: 10
 

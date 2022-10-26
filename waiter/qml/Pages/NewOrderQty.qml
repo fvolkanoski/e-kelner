@@ -11,7 +11,7 @@ Item {
         x: 0
         y: 25
         z: 1
-        width: 600
+        width: parent.width
         height: 49
         color: "#ffffff"
 
@@ -24,80 +24,87 @@ Item {
         }
     }
 
-    Rectangle {
-        x: 46
+    Item {
+        x: parent.width / 2 - 200
         y: 145
-        z: 2
-        radius: 10
-        width: 130
-        height: 130
-        color: "#D8D8D8"
 
-        Text {
-            anchors.centerIn: parent
-            color: "#000000"
-            text: "-"
-            font.pixelSize: 36
-            font.family: "nunito"
+        Rectangle {
+            x: 0
+            y: 0
+            z: 2
+            radius: 10
+            width: 130
+            height: 130
+            color: "#D8D8D8"
+
+            Text {
+                anchors.centerIn: parent
+                color: "#000000"
+                text: "-"
+                font.pixelSize: 36
+                font.family: "nunito"
+            }
+
+            MouseArea {
+                anchors.fill: parent
+
+                onClicked: {
+                    if(curQty > 1)
+                        curQty--;
+                }
+            }
         }
 
-        MouseArea {
-            anchors.fill: parent
+        Rectangle {
+            x: 45
+            y: 0
+            z: 1
+            radius: 10
+            width: 306
+            height: 130
+            color: "#eeeeee"
 
-            onClicked: {
-                if(curQty > 1)
-                    curQty--;
+            Text {
+                anchors.centerIn: parent
+                color: "#000000"
+                text: curQty
+                font.pixelSize: 36
+                font.family: "nunito"
+            }
+        }
+
+        Rectangle {
+            x: 260
+            y: 0
+            z: 2
+            radius: 10
+            width: 130
+            height: 130
+            color: "#D8D8D8"
+
+            Text {
+                anchors.centerIn: parent
+                color: "#000000"
+                text: "+"
+                font.pixelSize: 36
+                font.family: "nunito"
+            }
+
+            MouseArea {
+                anchors.fill: parent
+
+                onClicked: {
+                    curQty++;
+                }
             }
         }
     }
 
-    Rectangle {
-        x: 144
-        y: 145
-        z: 1
-        radius: 10
-        width: 306
-        height: 130
-        color: "#eeeeee"
 
-        Text {
-            anchors.centerIn: parent
-            color: "#000000"
-            text: curQty
-            font.pixelSize: 36
-            font.family: "nunito"
-        }
-    }
 
     Rectangle {
-        x: 424
-        y: 145
-        z: 2
-        radius: 10
-        width: 130
-        height: 130
-        color: "#D8D8D8"
-
-        Text {
-            anchors.centerIn: parent
-            color: "#000000"
-            text: "+"
-            font.pixelSize: 36
-            font.family: "nunito"
-        }
-
-        MouseArea {
-            anchors.fill: parent
-
-            onClicked: {
-                curQty++;
-            }
-        }
-    }
-
-    Rectangle {
-        x: 128
-        y: 843
+        x: parent.width / 2 - (344/2)
+        y: parent.height - 150
         radius: 10
         width: 344
         height: 130

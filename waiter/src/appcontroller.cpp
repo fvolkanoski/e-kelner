@@ -54,7 +54,7 @@ void AppController::addOrder()
                                   currentOrder().items()[i].name().toUtf8() + "," +
                                   QByteArray::number(currentOrder().items()[i].qty());
 
-            _udpSocket->writeDatagram(datagram, QHostAddress::Broadcast, 45454); // 192.168.0.173
+            _udpSocket->writeDatagram(datagram, QHostAddress("192.168.0.148"), 45454); // 192.168.0.173
         }
     }
 

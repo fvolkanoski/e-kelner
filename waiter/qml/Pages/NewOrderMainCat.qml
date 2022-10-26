@@ -13,7 +13,7 @@ Item {
         x: 0
         y: 25
         z: 1
-        width: 600
+        width: parent.width
         height: 49
         color: "#ffffff"
 
@@ -30,8 +30,8 @@ Item {
         id: categoriesList
         x: 15
         y: 125
-        width: 570
-        height: 900
+        width: parent.width - 15
+        height: parent.height - 50
         model: dbManager.categories
         spacing: 5
 
@@ -40,7 +40,7 @@ Item {
             required property string modelData
 
             height: 110
-            width: 570
+            width: parent.width - 15
             radius: 15
 
             Text

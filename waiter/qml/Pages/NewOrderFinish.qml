@@ -29,7 +29,7 @@ Item {
         x: 205
         y: 14
         height: 72
-        width: 382
+        width: parent.width - 300
         color: "#2ECC71"
         radius: 10
         z: 1
@@ -38,7 +38,7 @@ Item {
         {
             anchors.centerIn: parent
             text: "ДОДАЈ СТАВКА"
-            font.pixelSize: 36
+            font.pixelSize: 30
             font.family: "nunito";
             color: "#ffffff"
         }
@@ -56,15 +56,15 @@ Item {
         id: waiterList
         x: 43
         y: 120
-        width: 550
-        height: 850
+        width: parent.width - 43
+        height: parent.height - 50
         model: appController.currentOrder.items
         spacing: 5
 
         delegate: Item {
             id: itemModel
             height: 90
-            width: 515
+            width: parent.width - 50
             required property var modelData
 
             Rectangle
@@ -72,7 +72,7 @@ Item {
                 x: 0
                 y: 0
                 height: 90
-                width: 435
+                width: parent.width - 100
                 color: "#34495E"
                 radius: 10
 
@@ -86,7 +86,7 @@ Item {
                 }
 
                 Rectangle {
-                    x: 420
+                    x: parent.width - 15
                     y: 0
                     width: 90
                     height: 90
@@ -109,9 +109,9 @@ Item {
 
     Rectangle {
         x: 42
-        y: 914
+        y: parent.height - 150
         radius: 10
-        width: 515
+        width: parent.width - 84
         height: 90
         color: "#27AE60"
 

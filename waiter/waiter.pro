@@ -1,4 +1,5 @@
 QT += quick sql
+QTPLUGIN += qsqlite
 
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.
@@ -26,3 +27,10 @@ QML_DESIGNER_IMPORT_PATH =
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+databases.files = Waiter.db Menu.db
+ios: databases.path = Documents
+macx: databases.path = Documents
+QMAKE_BUNDLE_DATA += databases
+
+

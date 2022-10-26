@@ -12,7 +12,7 @@ Item
         x: 42
         y: 23
         height: 81
-        width: 515
+        width: parent.width - 100
         color: "#3498DB"
         radius: 10
 
@@ -41,8 +41,8 @@ Item
         x: 43
         y: 120
         z: -1
-        width: 550
-        height: 900
+        width: parent.width - 50
+        height: parent.height - 50
         model: appController.orders
         spacing: 10
 

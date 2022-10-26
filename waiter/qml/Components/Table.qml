@@ -98,6 +98,7 @@ Item {
 
             onReleased: {
                 var globalCoordinates = tableRect.mapToItem(tableRect.parent.parent, 0, 0)
+                 console.log(tableId + " " + globalCoordinates.x + " " + globalCoordinates.y)
                 dbManager.updateTablePos(tableId, globalCoordinates.x, globalCoordinates.y)
             }
         }

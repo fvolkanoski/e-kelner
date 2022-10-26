@@ -4,6 +4,10 @@
 #include <QObject>
 #include <QSqlDatabase>
 
+#if defined(Q_OS_IOS)
+#include <QtPlugin>
+#endif
+
 class DBManager : public QObject
 {
     Q_OBJECT

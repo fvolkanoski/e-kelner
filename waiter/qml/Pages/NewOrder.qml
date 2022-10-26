@@ -10,7 +10,8 @@ Item {
     signal tableChoosed(int tableId)
 
     Text {
-        x: 173
+        id: tableChoose
+        x: parent.width / 2 - (tableChoose.width / 2 + 40)
         y: 25
         color: "#000000"
         text: "Избор на маса: "
@@ -19,7 +20,7 @@ Item {
     }
 
     Rectangle {
-        x: 512
+        x: tableChoose.x + tableChoose.width + 20
         y: 15
         width: 69
         height: 69

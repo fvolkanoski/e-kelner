@@ -4,6 +4,7 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
+#include <QDir>
 
 DBManager::DBManager(QObject *parent)
     : QObject{parent}
@@ -127,21 +128,95 @@ void DBManager::deleteDBTable(int tableId)
 
 void DBManager::initDb()
 {
+    bool dbOK = QFile::exists(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Waiter.db");
+
+    qDebug() << "DB OK????" << dbOK;
+
+    if(!dbOK)
+    {
+        QFile file(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Waiter.db");
+        file.open(QIODevice::WriteOnly); // Or QIODevice::ReadWrite
+        file.close();
+    }
+
     _waiterDB = QSqlDatabase::addDatabase("QSQLITE");
     _waiterDB.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Waiter.db");
 
     if (!_waiterDB.open())
-        qDebug() << "Can't open waiters db.";
+    {
+        qDebug() << "Can't open waiters db." << _waiterDB.lastError() << QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    }
     else
+    {
+       bool dbStructOK = false;
+
+       QSqlQuery q = _waiterDB.exec("SELECT name FROM sqlite_master WHERE type='table' AND name='{waiters}';");
+       while(q.next())
+       {
+           dbStructOK = true;
+       }
+
+       qDebug() << "DB STRUCT OK??? " << dbStructOK;
+
+       if(!dbStructOK)
+       {
+        _waiterDB.exec("CREATE TABLE IF NOT EXISTS \"waiters\" ("
+                       "\"id\"	INTEGER NOT NULL UNIQUE,"
+                       "\"name\"	INTEGER NOT NULL UNIQUE,"
+                       "PRIMARY KEY(\"id\" AUTOINCREMENT)"
+                       " );");
+
+        _waiterDB.exec("INSERT INTO \"waiters\" VALUES (1,'Келнер1');");
+         _waiterDB.exec("INSERT INTO \"waiters\" VALUES (2,'Келнер2');");
+
+         _waiterDB.exec("CREATE TABLE IF NOT EXISTS \"tables\" ("
+                      "\"id\"	INTEGER NOT NULL UNIQUE,"
+                      "\"x\"	INTEGER NOT NULL,"
+                      "\"y\"	INTEGER NOT NULL,"
+                      "PRIMARY KEY(\"id\" AUTOINCREMENT));");
+
+         _waiterDB.exec("INSERT INTO \"tables\" VALUES (1,0,0);");
+         _waiterDB.exec("INSERT INTO \"tables\" VALUES (3,148,101);");
+         _waiterDB.exec("INSERT INTO \"tables\" VALUES (4,48,307);");
+         _waiterDB.exec("INSERT INTO \"tables\" VALUES (5,149,303);");
+       }
+
         readWaiters();
+        qDebug() << QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation);
+    }
 
     _menuDB = QSqlDatabase::addDatabase("QSQLITE", "conn2");
-    _menuDB.setDatabaseName(QStandardPaths::writableLocation(QStandardPaths::DocumentsLocation) + "/Menu.db");
+    _menuDB.setDatabaseName(QStandardPaths::locate(QStandardPaths::AppDataLocation, "Menu.db", QStandardPaths::LocateFile));
 
     if (!_menuDB.open())
         qDebug() << "Can't open menu db.";
     else
+    {
+        _menuDB.exec("CREATE TABLE IF NOT EXISTS \"categories\" ("
+                     "\"id\"	INTEGER NOT NULL UNIQUE,"
+                     "\"name\"	TEXT NOT NULL UNIQUE,"
+                     "PRIMARY KEY(\"id\" AUTOINCREMENT)"
+                 ");");
+
+        _menuDB.exec("CREATE TABLE IF NOT EXISTS \"items\" ("
+                     "\"id\"	INTEGER NOT NULL UNIQUE,"
+                     "\"cat_id\"	INTEGER NOT NULL,"
+                     "\"name\"	TEXT NOT NULL,"
+                     "PRIMARY KEY(\"id\" AUTOINCREMENT)"
+                 ");");
+
+
+        _menuDB.exec("INSERT INTO \"categories\" VALUES (0,'КАФЕ');");
+        _menuDB.exec("INSERT INTO \"categories\" VALUES (1,'АЛКОХОЛ');");
+        _menuDB.exec("INSERT INTO \"categories\" VALUES (2,'СОК');");
+        _menuDB.exec("INSERT INTO \"categories\" VALUES (3,'ПИЦИ');");
+        _menuDB.exec("INSERT INTO \"categories\" VALUES (4,'ДОРУЧЕК');");
+        _menuDB.exec("INSERT INTO \"items\" VALUES (0,0,'ЕСПРЕСО');");
+        _menuDB.exec("INSERT INTO \"items\" VALUES (1,0,'МАКИЈАТО');");
+        _menuDB.exec("INSERT INTO \"items\" VALUES (2,0,'КАПУЧИНО');");
+
         readCategories();
+    }
 }
 
 void DBManager::readWaiters()
@@ -150,6 +225,7 @@ void DBManager::readWaiters()
 
     if(!query.exec("SELECT * FROM waiters"))
     {
+        qDebug() << query.lastError();
         // Log error?
     }
 
